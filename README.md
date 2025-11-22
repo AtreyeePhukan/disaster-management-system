@@ -1,12 +1,82 @@
-# React + Vite
+Sahayataa – Disaster Management and Emergency Response System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sahayataa is an end-to-end disaster management platform designed to enable fast reporting, efficient volunteer coordination, real-time monitoring, and secure donations.
+The system integrates a modern React frontend with an AWS-powered backend for reliability, scalability, and immediate response.
 
-Currently, two official plugins are available:
+Features
+1. Real-Time Disaster Map
+-Live heatmap showing active fires, earthquakes, and disaster alerts.
+-Uses NASA FIRMS, USGS, and GDACS feeds.
+-Auto-refresh every 15 minutes.
+-Satellite layers and intensity visualization.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. Volunteer Registration System
+-Volunteers register with location, skills, availability, and experience.
+-GPS auto-detection.
+-Stored in DynamoDB.
+-Used for emergency matching.
 
-## Expanding the ESLint configuration
+3. Emergency Help Request Form
+-Citizens can submit:
+-Location details (auto GPS)
+-Danger severity
+-Situation description
+-Number of people affected
+-Specific needs (food, rescue, medical, water, etc.)
+-Optional photo/video uploads via S3
+-Saved securely to DynamoDB.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+4. Nearby Volunteer Alert System (AWS SNS)
+-When a new help request is submitted:
+-System scans for volunteers within a nearby radius.
+-Sends email notifications through AWS SNS.
+-Volunteers receive request details and exact location.
+-Greatly accelerates emergency response.
+
+5. Donation System
+-Secure donation form with:
+-Predefined/custom amounts
+-Purpose-based donation (food, medical, general fund)
+-Donor info and optional anonymity
+-Stored in DynamoDB.
+
+6. Media Upload Support
+-Users can upload photos/videos with their emergency requests.
+-S3 Signed URLs ensure secure uploads.
+-File URLs stored with request.
+
+7. AWS-Powered Backend
+-AWS Lambda — serverless backend
+-API Gateway — REST endpoints
+-DynamoDB — database for volunteers, donations, help requests
+-SNS — volunteer alert emails
+-S3 — media storage
+-IAM Security Policies — for secure access control
+
+
+Tech Stack
+1.Frontend
+ -React (Vite)
+ -TailwindCSS
+ -ShadCN components
+ -Lucide icons
+ -Leaflet heatmaps and maps
+
+2. Backend
+  -Node.js (Lambda)
+  -AWS API Gateway
+  -DynamoDB
+  -SNS
+  -S3
+
+Environment Variables
+ -Create a .env inside /frontend:
+  VITE_API_BASE_URL=https://your-api-url.amazonaws.com/dev
+
+Running Locally
+1. Install dependencies
+   -npm install
+2. Start frontend
+   -npm run dev
+3. Backend
+   -Runs on AWS, no local backend required.
